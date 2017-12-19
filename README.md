@@ -1,6 +1,5 @@
 # vue-morph
-A Vue.js plugin that allows you to have a html element morphed into another html element using a custom directive 'v-morph'. No jQuery required.
-
+A Vue.js plugin that allows you to have a html element morphed into another html element using a custom directive 'v-morph'. No jQuery required.  
 A component that has 'v-morph' directive transforms into another target element when you fire the event. You can define what is the target element, when to trigger the event, what css parameters you want to animate, how the animation looks like, and what happens once the animation is done.
 
 ### Installation:
