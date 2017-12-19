@@ -1,5 +1,6 @@
 # vue-morph
 A Vue.js plugin that allows you to have a html element morphed into another html element using a custom directive 'v-morph'. No jQuery required.
+
 A component that has 'v-morph' directive transforms into another target element when you fire the event. You can define what is the target element, when to trigger the event, what css parameters you want to animate, how the animation looks like, and what happens once the animation is done.
 
 ### Installation:
@@ -74,11 +75,11 @@ clicked () {
 | callback | function | callback function called after animation is done | | optional |
 
 ### Available CSS parameters you can animate
+You need to pass boolean value with a css parameter. If you want to animate it from the origin element's value to the target element's value, pass true. If you don't want to animate it and just keep the origin element's value in the animation, pass false.
 - backgroundColor
 - borderColor
 - borderRadius
 - opacity
-You need to pass boolean value with a css parameter. If you want to animate it from the origin element's value to the target element's value, pass true. If you don't want to animate it and just keep the origin element's value in the animation, pass false.
 
 ### Available Easing Types
 This plugin uses an animation library called [anime.js](http://animejs.com/), so you can assign any easing types available in the library.
