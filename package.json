@@ -1,7 +1,7 @@
 {
   "name": "vue-morph",
   "version": "0.8.0",
-  "description": "A Vue.s plugin to enable morphing a html element to another",
+  "description": "A Vue.js plugin that allows you to have a html element morphed into another html element using a custom directive 'v-morph'. No jQuery required.",
   "author": "Seiya Kobayashi",
   "main": "dist/plugin.js",
   "scripts": {
