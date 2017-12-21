@@ -4,6 +4,7 @@
 <template>
   <div id="app">
     <morphing-layer ref="morphing-layer" />
+    <app-header />
     <modal-window />
     <home />
   </div>
@@ -13,6 +14,7 @@
  Vue Script
 ================================================== -->
 <script>
+import AppHeader from '@/components/AppHeader'
 import ModalWindow from '@/components/ModalWindow'
 import Home from '@/components/Home'
 require('reset-css')
@@ -20,7 +22,7 @@ require('reset-css')
 export default {
   name: 'app',
   components: {
-    Home, ModalWindow
+    Home, ModalWindow, AppHeader
   }
 }
 </script>
