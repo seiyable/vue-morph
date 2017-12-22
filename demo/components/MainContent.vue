@@ -26,5 +26,6 @@ export default {
 main {
   position: fixed;
   width: 100%;
+  background-color: snow;
 }
 </style>

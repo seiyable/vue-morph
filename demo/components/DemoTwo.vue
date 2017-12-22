@@ -138,12 +138,6 @@ export default {
  Vue Style
 ================================================== -->
 <style scoped>
-.page-wrapper {
-  height: 100%;
-  background-color: snow;
-  position: relative;
-}
-
 .morph-settings {
   height: 50px;
   background-color: lightgrey;
