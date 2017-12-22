@@ -5,7 +5,9 @@ const state = {
   modalWindow: {
     isVisible: false,
     bgColor: '',
-    originElementId: ''
+    originElementId: '',
+    easing: '',
+    duration: 0
   },
   appButtons: [
     {id: 0, isVisible: true},
@@ -22,7 +24,12 @@ const state = {
     {id: 11, isVisible: true},
     {id: 12, isVisible: true},
     {id: 13, isVisible: true},
-    {id: 14, isVisible: true}
+    {id: 14, isVisible: true},
+    {id: 15, isVisible: true},
+    {id: 16, isVisible: true},
+    {id: 17, isVisible: true},
+    {id: 18, isVisible: true},
+    {id: 19, isVisible: true}
   ]
 }
 
@@ -30,11 +37,13 @@ const state = {
  mutations
 ================================================== */
 const mutations = {
-  showModal (state, {bgColor, originElementId}) {
-    console.log('[store.mutations] showModal: ', {bgColor, originElementId})
+  showModal (state, {bgColor, originElementId, easing, duration}) {
+    console.log('[store.mutations] showModal: ', {bgColor, originElementId, easing, duration})
     state.modalWindow.isVisible = true
     state.modalWindow.bgColor = bgColor
     state.modalWindow.originElementId = originElementId
+    state.modalWindow.easing = easing
+    state.modalWindow.duration = duration
   },
   closeModal (state) {
     console.log('[store.mutations] closeModal')

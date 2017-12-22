@@ -4,9 +4,8 @@
 <template>
   <div id="app">
     <morphing-layer ref="morphing-layer" />
-    <app-header />
-    <modal-window />
-    <home />
+    <app-header :height="110"/>
+    <main-content :top="110"/>
   </div>
 </template>
 
@@ -15,14 +14,13 @@
 ================================================== -->
 <script>
 import AppHeader from '@/components/AppHeader'
-import ModalWindow from '@/components/ModalWindow'
-import Home from '@/components/Home'
+import MainContent from '@/components/MainContent'
 require('reset-css')
 
 export default {
   name: 'app',
   components: {
-    Home, ModalWindow, AppHeader
+    AppHeader, MainContent
   }
 }
 </script>

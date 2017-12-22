@@ -4,7 +4,7 @@
 <template>
   <header>
     <div class="header-wrapper">
-      <h1>vue-morph demos</h1>
+      <h1>vue-morph</h1>
       <nav>
         <ul>
           <li>Demo 1</li>

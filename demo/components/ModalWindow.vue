@@ -2,12 +2,14 @@
  Vue Template
 ================================================== -->
 <template>
-  <div
-    id="modal-window"
-    :style="[getVisibility, getBgColor]"
-    v-morph
-    @click="clicked()"
-    >
+  <div class="modal-window-mask" :style="getVisibility">
+    <div
+      id="modal-window"
+      :style="getBgColor"
+      v-morph
+      @click="clicked()"
+      >
+    </div>
   </div>
 </template>
 
@@ -17,16 +19,14 @@
 <script>
 export default {
   name: 'modal',
+  props: {
+    isVisible: Boolean,
+    bgColor: String,
+    originElementId: String,
+    easing: String,
+    duration: Number
+  },
   computed: {
-    isVisible () {
-      return this.$store.state.modalWindow.isVisible
-    },
-    bgColor () {
-      return this.$store.state.modalWindow.bgColor
-    },
-    originElementId () {
-      return this.$store.state.modalWindow.originElementId
-    },
     getVisibility () {
       return this.isVisible ? {'visibility': 'visible'} : {'visibility': 'hidden'}
     },
@@ -40,23 +40,22 @@ export default {
           'background-color': false,
           'border-radius': true
         },
-        // easing: 'easeOutQuint',
-        // duration: 500,
-        // className: 'morphing-div',
+        easing: this.easing,
+        duration: this.duration,
+        className: 'morphing-div',
         callback: this.morphDone
       }
     }
   },
   methods: {
     clicked () {
-      this.$store.commit('closeModal')
       // trigger the morphing event
-      this.$el.dispatchEvent(new CustomEvent('morph', {'detail': this.getMorphOption}))
+      this.$emit('morph-started')
+      let modalWindowElement = document.getElementById('modal-window')
+      modalWindowElement.dispatchEvent(new CustomEvent('morph', {'detail': this.getMorphOption}))
     },
     morphDone () {
-      const prefix = 'app-button-'
-      let appButtonId = parseInt(this.originElementId.substring(prefix.length))
-      this.$store.commit('showAppButton', {appButtonId: appButtonId})
+      this.$emit('morph-done', {originElementId: this.originElementId})
     }
   }
 }
@@ -66,10 +65,19 @@ export default {
  Vue Style
 ================================================== -->
 <style scoped>
+.modal-window-mask {
+  z-index: 1000;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 #modal-window {
-  position: fixed;
-  width: 90%;
-  height: 90%;
+  position: absolute;
+  width: 80%;
+  height: 80%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -2,14 +2,14 @@
  Vue Template
 ================================================== -->
 <template>
-  <div
+  <li
     class="app-button"
     :style="[getVisibility, getBgColor]"
-    :id="'app-button-' + appButtonId"
+    :id="appButtonId"
     v-morph
     @click="clicked()"
   >
-  </div>
+</li>
 </template>
 
 <!-- =================================================
@@ -19,13 +19,13 @@
 export default {
   name: 'app-button',
   props: {
+    isVisible: Boolean,
     bgColor: String,
-    appButtonId: Number
+    appButtonId: String,
+    easing: String,
+    duration: Number
   },
   computed: {
-    isVisible () {
-      return this.$store.getters.getAppButton(this.appButtonId).isVisible
-    },
     getVisibility () {
       return this.isVisible ? {'visibility': 'visible'} : {'visibility': 'hidden'}
     },
@@ -39,9 +39,9 @@ export default {
           'background-color': false,
           'border-radius': true
         },
-        // easing: 'easeOutQuint',
-        // duration: 500,
-        // className: 'morphing-div',
+        easing: this.easing,
+        duration: this.duration,
+        className: 'morphing-div',
         callback: this.morphDone
       }
     }
@@ -49,11 +49,11 @@ export default {
   methods: {
     clicked () {
       // trigger the morphing event
-      this.$store.commit('hideAppButton', {appButtonId: this.appButtonId})
+      this.$emit('morph-started', {originElementId: this.appButtonId})
       this.$el.dispatchEvent(new CustomEvent('morph', {'detail': this.getMorphOption}))
     },
     morphDone () {
-      this.$store.commit('showModal', {
+      this.$emit('morph-done', {
         bgColor: this.bgColor,
         originElementId: this.$el.id
       })
@@ -71,6 +71,7 @@ export default {
   height: 200px;
   margin: 10px;
   border-radius: 20px;
-  float: left;
+  /* float: left; */
+  display: inline-block;
 }
 </style>
