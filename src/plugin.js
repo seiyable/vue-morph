@@ -49,7 +49,6 @@ let plugin = {
       bind (el, binding, vnode) {
         // attach event listner to trigger morphing
         el.addEventListener(eventType, (event) => {
-          // console.log(event)
           const payload = event.detail
           if (!validate(payload)) {
             return

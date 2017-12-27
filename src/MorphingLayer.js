@@ -68,11 +68,7 @@ export default {
       // set additional parameters if any
       let originComputedStyle = window.getComputedStyle(this.origin.el)
       let targetComputedStyle = window.getComputedStyle(this.target.el)
-      // for (let i = 0; i < params.length; i++) {
-      //   let propName = params[i]
-      //   this.origin[camelCase(propName)] = originComputedStyle.getPropertyValue(propName)
-      //   this.target[camelCase(propName)] = targetComputedStyle.getPropertyValue(propName)
-      // }
+
       for (let prop in params) {
         let val = params[prop]
         this.origin[camelCase(prop)] = originComputedStyle.getPropertyValue(prop)

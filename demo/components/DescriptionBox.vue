@@ -3,12 +3,16 @@
 ================================================== -->
 <template>
   <li
-    class="app-button"
-    :style="[getVisibility, getBgColor]"
-    :id="appButtonId"
+    class="description-box"
+    :style="[getSize, getBgColor]"
+    :id="descriptionBoxId"
     v-morph
     @click="clicked()"
   >
+  <h6>Option {{index}}</h6>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
 </li>
 </template>
 
@@ -17,24 +21,31 @@
 ================================================== -->
 <script>
 export default {
-  name: 'app-button',
+  name: 'description-box',
   props: {
-    isVisible: Boolean,
+    width: String,
+    height: String,
+    margin: String,
     bgColor: String,
-    appButtonId: String,
+    index: Number,
+    descriptionBoxId: String,
     easing: String,
     duration: Number
   },
   computed: {
-    getVisibility () {
-      return this.isVisible ? {'visibility': 'visible'} : {'visibility': 'hidden'}
+    getSize () {
+      return {
+        width: this.width,
+        height: this.height,
+        margin: this.margin
+      }
     },
     getBgColor () {
       return {'background-color': this.bgColor}
     },
     getMorphOption () {
       return {
-        targetElementId: 'modal-window',
+        targetElementId: 'demo-three-content-wrapper',
         params: {
           'background-color': false,
           'border-radius': true
@@ -49,14 +60,16 @@ export default {
   methods: {
     clicked () {
       // trigger the morphing event
+      console.log('morph started!')
       this.$emit('morph-started', {originElementId: this.appButtonId})
       this.$el.dispatchEvent(new CustomEvent('morph', {'detail': this.getMorphOption}))
     },
     morphDone () {
-      this.$emit('morph-done', {
-        bgColor: this.bgColor,
-        originElementId: this.$el.id
-      })
+      console.log('morph done!')
+      // this.$emit('morph-done', {
+      //   bgColor: this.bgColor,
+      //   originElementId: this.$el.id
+      // })
     }
   }
 }
@@ -66,11 +79,19 @@ export default {
  Vue Style
 ================================================== -->
 <style scoped>
-.app-button {
-  width: 100px;
-  height: 100px;
-  margin: 10px;
-  border-radius: 20px;
+.description-box {
   display: inline-block;
+  padding: 20px;
+}
+
+h6 {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5em;
 }
 </style>

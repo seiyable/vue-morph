@@ -3,33 +3,23 @@
 ================================================== -->
 <template>
   <div class="page-wrapper">
-    <div class="morph-settings">
-      <div class="morph-settings-container">
-        <div class="easing-setting">
-          Easing Type:
-          <select v-model="selectedEasing">
-            <option
-              v-for="easing in easings"
-              :value="easing"
-              :selected="easing === 'easeOutQuint'"
-              >
-              {{easing}}
-            </option>
-          </select>
-        </div>
-        <div class="duration-setting">
-          Duration:
-          <input type="text" v-model.number="selectedDuration" placeholder="500"/>
-        </div>
-      </div>
-    </div>
-    <div class="app-button-list-wrapper">
-      <ul class="app-button-list">
+    <!-- settings -->
+    <morph-setting-bar
+      :height="settingBarHeight"
+      :easing-list="easingList"
+      :selected-easing="selectedEasing"
+      :selected-duration="selectedDuration"
+      @easing-updated="(val) => {selectedEasing = val}"
+      @duration-updated="(val) => {selectedDuration = val}"
+    />
+    <!-- content -->
+    <div class="app-button-list-wrapper" :style="getContentHeight">
+      <ul class="app-button-list center">
         <app-button
-          v-for="n in 20"
+          v-for="n in 24"
           :key="n"
           :is-visible="getAppButtonVisibility(n)"
-          :bg-color="getAppButtonBgColor(n, 20)"
+          :bg-color="getAppButtonBgColor(n, 24)"
           :app-button-id="'app-button-' + n"
           :easing="selectedEasing"
           :duration="selectedDuration"
@@ -54,55 +44,38 @@
  Vue Script
 ================================================== -->
 <script>
+import easingList from '@/easingList'
+import MorphSettingBar from '@/components/MorphSettingBar'
 import AppButton from '@/components/AppButton'
 import ModalWindow from '@/components/ModalWindow'
 
 export default {
   name: 'demo-two',
   components: {
-    AppButton, ModalWindow
+    MorphSettingBar, AppButton, ModalWindow
   },
   data () {
     return {
+      settingBarHeight: '50px',
+      easingList: easingList,
+      selectedEasing: 'easeOutQuint',
+      selectedDuration: 500,
       activeAppButtonId: -1,
       modalWindow: {
         isVisible: false,
         bgColor: '',
         originElementId: ''
-      },
-      selectedEasing: 'easeOutQuint',
-      selectedDuration: 500,
-      easings: [
-        'linear',
-        'easeInQuad',
-        'easeInCubic',
-        'easeInQuart',
-        'easeInQuint',
-        'easeInSine',
-        'easeInExpo',
-        'easeInCirc',
-        'easeInBack',
-        'easeInElastic',
-        'easeOutQuad',
-        'easeOutCubic',
-        'easeOutQuart',
-        'easeOutQuint',
-        'easeOutSine',
-        'easeOutExpo',
-        'easeOutCirc',
-        'easeOutBack',
-        'easeOutElastic',
-        'easeInOutQuad',
-        'easeInOutCubic',
-        'easeInOutQuart',
-        'easeInOutQuint',
-        'easeInOutSine',
-        'easeInOutExpo',
-        'easeInOutCirc',
-        'easeInOutBack',
-        'easeInOutElastic'
-      ]
+      }
     }
+  },
+  computed: {
+    getContentHeight () {
+      return {
+        height: '-webkit-calc(100% - ' + this.settingBarHeight + ')',
+        height: '-moz-calc(100% - ' + this.settingBarHeight + ')',
+        height: 'calc(100% - ' + this.settingBarHeight + ')'
+      }
+    },
   },
   methods: {
     getAppButtonVisibility (index) {
@@ -138,28 +111,16 @@ export default {
  Vue Style
 ================================================== -->
 <style scoped>
-.morph-settings {
-  height: 50px;
-  background-color: lightgrey;
+.page-wrapper {
+  height: 100%;
+}
+
+.app-button-list-wrapper {
   position: relative;
-}
-
-.morph-settings-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.easing-setting, .duration-setting {
-  padding: 0 20px;
-  float: left;
 }
 
 .app-button-list {
-  position: relative;
-  width: 1200px;
-  margin: 0 auto;
+  width: 800px;
 }
 
 ul.app-button-list {

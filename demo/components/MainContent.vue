@@ -2,7 +2,7 @@
  Vue Template
 ================================================== -->
 <template>
-  <main :style="{'top': top + 'px'}">
+  <main :style="getStyle">
     <router-view></router-view>
   </main>
 </template>
@@ -14,7 +14,17 @@
 export default {
   name: 'main-content',
   props: {
-    top: Number
+    top: String
+  },
+  computed: {
+    getStyle () {
+      return {
+        top: this.top,
+        height: '-webkit-calc(100% - ' + this.top + ')',
+        height: '-moz-calc(100% - ' + this.top + ')',
+        height: 'calc(100% - ' + this.top + ')'
+      }
+    }
   }
 }
 </script>
